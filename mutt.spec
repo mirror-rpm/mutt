@@ -16,7 +16,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.21
-Release: 18%{?dist}
+Release: 19%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -39,6 +39,7 @@ Patch13: mutt-1.5.21-syncdebug.patch
 Patch14: mutt-1.5.21-writehead.patch
 Patch15: mutt-1.5.21-tmpdir.patch
 Patch16: mutt-1.5.21-verpeers.patch
+Patch17: mutt-1.5.21-manhelp.patch
 Url: http://www.mutt.org/
 Requires: mailcap urlview
 BuildRequires: ncurses-devel
@@ -89,6 +90,7 @@ for selecting groups of messages.
 %patch14 -p1 -b .writehead
 %patch15 -p1 -b .tmpdir
 %patch16 -p1 -b .verpeers
+%patch17 -p1 -b .manhelp
 
 sed -i.gpgerror 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 
@@ -170,9 +172,14 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_bindir}/smime_keys
 %{_mandir}/man1/mutt.*
 %{_mandir}/man1/smime_keys.*
+%{_mandir}/man1/pgpring.*
+%{_mandir}/man1/pgpewrap.*
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Mon May 20 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-19
+- Fix missing options in doc and pgpring, pgpewrap man page
+
 * Mon Mar  4 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-18
 - gnutls_certificate_verify_peers became deprecated, using
   a recent alternative

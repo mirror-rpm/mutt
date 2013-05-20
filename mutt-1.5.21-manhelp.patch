@@ -1,0 +1,284 @@
+diff -up mutt-1.5.21/doc/Makefile.in.manhelp mutt-1.5.21/doc/Makefile.in
+--- mutt-1.5.21/doc/Makefile.in.manhelp	2010-08-25 18:31:48.000000000 +0200
++++ mutt-1.5.21/doc/Makefile.in	2013-05-20 17:03:19.557439907 +0200
+@@ -218,6 +218,8 @@ EXTRA_DIST = dotlock.man		\
+         smime_keys.man                  \
+ 	muttbug.man			\
+ 	mutt.man			\
++	pgpewrap.man			\
++	pgpring.man			\
+ 	PGP-Notes.txt			\
+ 	applying-patches.txt		\
+ 	devel-notes.txt			\
+@@ -519,7 +521,7 @@ uninstall-am: uninstall-local
+ 
+ all: makedoc-all
+ 
+-makedoc-all: mutt.1 smime_keys.1 muttrc.man manual.html stamp-doc-rc stamp-doc-chunked manual.txt
++makedoc-all: mutt.1 smime_keys.1 muttrc.man manual.html stamp-doc-rc stamp-doc-chunked manual.txt pgpewrap.1 pgpring.1
+ 
+ install-data-local: makedoc-all instdoc
+ 	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(mandir)/man1
+@@ -527,6 +529,8 @@ install-data-local: makedoc-all instdoc
+ 	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(sysconfdir)
+ 	./instdoc mutt.1 $(DESTDIR)$(mandir)/man1/mutt.1
+ 	./instdoc smime_keys.1 $(DESTDIR)$(mandir)/man1/smime_keys.1
++	./instdoc pgpewrap.1 $(DESTDIR)$(mandir)/man1/pgpewrap.1
++	./instdoc pgpring.1 $(DESTDIR)$(mandir)/man1/pgpring.1
+ 	./instdoc $(srcdir)/muttbug.man $(DESTDIR)$(mandir)/man1/flea.1
+ 	./instdoc $(srcdir)/muttbug.man $(DESTDIR)$(mandir)/man1/muttbug.1
+ 	test x@DOTLOCK_TARGET@ = x || ./instdoc $(srcdir)/dotlock.man \
+@@ -555,7 +559,7 @@ install-data-local: makedoc-all instdoc
+ 	fi
+ 
+ uninstall-local:
+-	for f in mutt.1 mutt_dotlock.1 flea.1 muttbug.1 smime_keys.1; do \
++	for f in mutt.1 mutt_dotlock.1 flea.1 muttbug.1 smime_keys.1 pgpewrap.1 pgpring.1; do \
+ 		rm -f $(DESTDIR)$(mandir)/man1/$$f ; \
+ 	done
+ 	for f in muttrc.5 mbox.5 mmdf.5 ; do \
+@@ -620,7 +624,7 @@ sortcheck: manual.xml
+ 	rm -rf vars.tmp.1 vars.tmp.2
+ 
+ clean-local:
+-	rm -f *~ *.html *.orig *.rej  stamp-doc-* *.ps mutt.1 smime_keys.1 muttrc.man
++	rm -f *~ *.html *.orig *.rej  stamp-doc-* *.ps mutt.1 smime_keys.1 muttrc.man pgpewrap.1 pgpring.1
+ 	rm -f *.aux *.log *.tex *.out
+ 
+ instdoc: instdoc.sh
+@@ -640,6 +644,12 @@ mutt.1: $(srcdir)/mutt.man
+ smime_keys.1: $(srcdir)/smime_keys.man
+ 	$(EDIT) $(srcdir)/smime_keys.man > $@
+ 
++pgpewrap.1: $(srcdir)/pgpewrap.man
++	$(EDIT) $(srcdir)/pgpewrap.man > $@
++
++pgpring.1: $(srcdir)/pgpring.man
++	$(EDIT) $(srcdir)/pgpring.man > $@
++
+ stamp-doc-xml: makedoc$(EXEEXT) $(top_srcdir)/init.h \
+                manual.xml.head $(top_srcdir)/functions.h $(top_srcdir)/OPS* manual.xml.tail \
+                $(srcdir)/gen-map-doc $(top_srcdir)/VERSION $(top_srcdir)/ChangeLog
+diff -up mutt-1.5.21/doc/manual.html.manhelp mutt-1.5.21/doc/manual.html
+--- mutt-1.5.21/doc/manual.html.manhelp	2013-05-20 17:01:07.570442214 +0200
++++ mutt-1.5.21/doc/manual.html	2013-05-20 17:01:13.082442117 +0200
+@@ -4171,7 +4171,7 @@ case-insensitivity).
+ Running <code class="literal">mutt</code> with no arguments will make Mutt attempt
+ to read your spool mailbox.  However, it is possible to read other
+ mailboxes and to send messages from the command line as well.
+-</p><div class="table"><a id="tab-commandline-options"></a><p class="title"><b>Table 9.1. Command line options</b></p><div class="table-contents"><table summary="Command line options" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td>-A</td><td>expand an alias</td></tr><tr><td>-a</td><td>attach a file to a message</td></tr><tr><td>-b</td><td>specify a blind carbon-copy (BCC) address</td></tr><tr><td>-c</td><td>specify a carbon-copy (Cc) address</td></tr><tr><td>-D</td><td>print the value of all Mutt variables to stdout</td></tr><tr><td>-e</td><td>specify a config command to be run after initialization files are read</td></tr><tr><td>-f</td><td>specify a mailbox to load</td></tr><tr><td>-F</td><td>specify an alternate file to read initialization commands</td></tr><tr><td>-h</td><td>print help on command line options</td></tr><tr><td>-H</td><td>specify a draft file from which to read a header and body</td></tr><tr><td>-i</td><td>specify a file to include in a message composition</td></tr><tr><td>-m</td><td>specify a default mailbox type</td></tr><tr><td>-n</td><td>do not read the system Muttrc</td></tr><tr><td>-p</td><td>recall a postponed message</td></tr><tr><td>-Q</td><td>query a configuration variable</td></tr><tr><td>-R</td><td>open mailbox in read-only mode</td></tr><tr><td>-s</td><td>specify a subject (enclose in quotes if it contains spaces)</td></tr><tr><td>-v</td><td>show version number and compile-time definitions</td></tr><tr><td>-x</td><td>simulate the mailx(1) compose mode</td></tr><tr><td>-y</td><td>show a menu containing the files specified by the <span class="command"><strong>mailboxes</strong></span> command</td></tr><tr><td>-z</td><td>exit immediately if there are no messages in the mailbox</td></tr><tr><td>-Z</td><td>open the first folder with new message, exit immediately if none</td></tr></tbody></table></div></div><br class="table-break" /><p>
++</p><div class="table"><a id="tab-commandline-options"></a><p class="title"><b>Table 9.1. Command line options</b></p><div class="table-contents"><table summary="Command line options" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td>-A</td><td>expand an alias</td></tr><tr><td>-a</td><td>attach a file to a message</td></tr><tr><td>-b</td><td>specify a blind carbon-copy (BCC) address</td></tr><tr><td>-c</td><td>specify a carbon-copy (Cc) address</td></tr><tr><td>-D</td><td>print the value of all Mutt variables to stdout</td></tr><tr><td>-d</td><td>log debugging output to ~/.muttdebug0 if complied with +DEBUG (level can be 1-5)</td></tr><tr><td>-e</td><td>specify a config command to be run after initialization files are read</td></tr><tr><td>-f</td><td>specify a mailbox to load</td></tr><tr><td>-F</td><td>specify an alternate file to read initialization commands</td></tr><tr><td>-h</td><td>print help on command line options</td></tr><tr><td>-H</td><td>specify a draft file from which to read a header and body</td></tr><tr><td>-i</td><td>specify a file to include in a message composition</td></tr><tr><td>-m</td><td>specify a default mailbox type</td></tr><tr><td>-n</td><td>do not read the system Muttrc</td></tr><tr><td>-p</td><td>recall a postponed message</td></tr><tr><td>-Q</td><td>query a configuration variable</td></tr><tr><td>-R</td><td>open mailbox in read-only mode</td></tr><tr><td>-s</td><td>specify a subject (enclose in quotes if it contains spaces)</td></tr><tr><td>-v</td><td>show version number and compile-time definitions</td></tr><tr><td>-x</td><td>simulate the mailx(1) compose mode</td></tr><tr><td>-y</td><td>show a menu containing the files specified by the <span class="command"><strong>mailboxes</strong></span> command</td></tr><tr><td>-z</td><td>exit immediately if there are no messages in the mailbox</td></tr><tr><td>-Z</td><td>open the first folder with new message, exit immediately if none</td></tr></tbody></table></div></div><br class="table-break" /><p>
+ To read messages in a mailbox
+ </p><div class="cmdsynopsis"><p><code class="command">mutt</code>  [<code class="option">-nz</code>] [<code class="option">-F</code>
+ <em class="replaceable"><code>muttrc</code></em>
+diff -up mutt-1.5.21/doc/manual.txt.manhelp mutt-1.5.21/doc/manual.txt
+--- mutt-1.5.21/doc/manual.txt.manhelp	2013-05-20 17:01:07.935442207 +0200
++++ mutt-1.5.21/doc/manual.txt	2013-05-20 17:01:13.622442108 +0200
+@@ -6021,6 +6021,8 @@ Table 9.1. Command line options
+ |------+----------------------------------------------------------------------|
+ |-D    |print the value of all Mutt variables to stdout                       |
+ |------+----------------------------------------------------------------------|
++|-d    |log debugging output to ~/.muttdebug0 if complied with +DEBUG (1-5)   |
++|------+----------------------------------------------------------------------|
+ |-e    |specify a config command to be run after initialization files are read|
+ |------+----------------------------------------------------------------------|
+ |-f    |specify a mailbox to load                                             |
+diff -up mutt-1.5.21/doc/pgpewrap.man.manhelp mutt-1.5.21/doc/pgpewrap.man
+--- mutt-1.5.21/doc/pgpewrap.man.manhelp	2013-05-20 17:01:13.953442102 +0200
++++ mutt-1.5.21/doc/pgpewrap.man	2013-05-20 17:01:13.953442102 +0200
+@@ -0,0 +1,46 @@
++.\" -*-nroff-*-
++.\"
++.\"     pgpewrap, a command line munging tool
++.\"     Manpage Copyright (c) 2013 Honza Horak
++.\"
++.\"     This program is free software; you can redistribute it and/or modify
++.\"     it under the terms of the GNU General Public License as published by
++.\"     the Free Software Foundation; either version 2 of the License, or
++.\"     (at your option) any later version.
++.\"
++.\"     This program is distributed in the hope that it will be useful,
++.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
++.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++.\"     GNU General Public License for more details.
++.\"
++.\"     You should have received a copy of the GNU General Public License
++.\"     along with this program; if not, write to the Free Software
++.\"     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++.\"
++.TH pgpewrap 1 "May 2013" Unix "User Manuals"
++.SH NAME
++pgpewrap \- Mutt command line munging tool
++
++.SH SYNTAX
++.PP
++\fBpgpewrap\fP [ \fBflags\fP ] \-\- \fBprefix\fP [ \fBrecipients\fP ]
++
++.SH DESCRIPTION
++.PP
++This is a little C program which does some command line munging: The
++first argument is a command to be executed.  When \fBpgpewrap\fP
++encounters a "\-\-" (dash\-dash) argument, it will interpret the next
++argument as a prefix which is put in front of all following
++arguments.
++
++.SH EXAMPLE
++
++        pgpewrap pgpe file \-\- \-r a b c
++
++will execute:
++
++        pgpe file -r a -r b -r c
++
++This script is needed with PGP 5 and with GPG, since their command
++line interfaces can't be properly served by mutt's format mechanism.
++
+diff -up mutt-1.5.21/doc/PGP-Notes.txt.manhelp mutt-1.5.21/doc/PGP-Notes.txt
+--- mutt-1.5.21/doc/PGP-Notes.txt.manhelp	2008-03-19 21:07:06.000000000 +0100
++++ mutt-1.5.21/doc/PGP-Notes.txt	2013-05-20 17:01:14.335442095 +0200
+@@ -182,6 +182,10 @@ Command line options:
+ 			
+ 	-s		Dump the secret key ring.
+ 
++	-S		Dump signatures.
++
++	-f		Dump fingerprints.
++
+ 
+ 
+ 2. pgpewrap
+diff -up mutt-1.5.21/doc/pgpring.man.manhelp mutt-1.5.21/doc/pgpring.man
+--- mutt-1.5.21/doc/pgpring.man.manhelp	2013-05-20 17:01:14.685442089 +0200
++++ mutt-1.5.21/doc/pgpring.man	2013-05-20 17:01:14.685442089 +0200
+@@ -0,0 +1,58 @@
++.\" -*-nroff-*-
++.\"
++.\"     pgpring, a key ring dumper
++.\"     Manpage Copyright (c) 2004-2013 Matthew Wilcox, Honza Horak
++.\"
++.\"     This program is free software; you can redistribute it and/or modify
++.\"     it under the terms of the GNU General Public License as published by
++.\"     the Free Software Foundation; either version 2 of the License, or
++.\"     (at your option) any later version.
++.\"
++.\"     This program is distributed in the hope that it will be useful,
++.\"     but WITHOUT ANY WARRANTY; without even the implied warranty of
++.\"     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++.\"     GNU General Public License for more details.
++.\"
++.\"     You should have received a copy of the GNU General Public License
++.\"     along with this program; if not, write to the Free Software
++.\"     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
++.\"
++.TH pgpring 1 "May 2013" Unix "User Manuals"
++.SH NAME
++pgpring \- Mutt key ring dumper
++
++.SH SYNTAX
++.PP
++\fBpgpring\fP [ \fB\-k\fP \fIkeyring\fP ] [ \fB\-2\fP | \fB\-5\fP ]
++[ \fB\-s\fP ] [ \fB\-S\fP ] [ \fB\-f\fP ]
++
++.SH DESCRIPTION
++.PP
++pgpring is a key ring dumper.  It extracts information from PGP's
++binary key ring and emits it in an (almost) readable output format
++understood by mutt's key selection routines.  This output format
++mimics the one used by the GNU Privacy Guard (GPG).
++
++.SH OPTIONS
++.TP
++.BI \-k " keyring"
++Dump the contents of the specified keyring.
++.TP
++.B \-2
++Use the default keyring for PGP 2.x.
++.TP
++.B \-5
++Use the default keyring for PGP 5.
++.TP
++.B \-s
++Dump the secret keyring.
++.TP
++.B \-S
++Dump signatures.
++.TP
++.B \-f
++Dump fingerprints.
++
++.SH AUTHORS
++Thomas Roessler <roessler@does\-not\-exist.org>
++
+diff -up mutt-1.5.21/doc/reference.html.manhelp mutt-1.5.21/doc/reference.html
+--- mutt-1.5.21/doc/reference.html.manhelp	2013-05-20 17:01:10.220442167 +0200
++++ mutt-1.5.21/doc/reference.html	2013-05-20 17:01:15.013442084 +0200
+@@ -31,7 +31,7 @@ tr { vertical-align: top; }
+ Running <code class="literal">mutt</code> with no arguments will make Mutt attempt
+ to read your spool mailbox.  However, it is possible to read other
+ mailboxes and to send messages from the command line as well.
+-</p><div class="table"><a id="tab-commandline-options"></a><p class="title"><b>Table 9.1. Command line options</b></p><div class="table-contents"><table summary="Command line options" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td>-A</td><td>expand an alias</td></tr><tr><td>-a</td><td>attach a file to a message</td></tr><tr><td>-b</td><td>specify a blind carbon-copy (BCC) address</td></tr><tr><td>-c</td><td>specify a carbon-copy (Cc) address</td></tr><tr><td>-D</td><td>print the value of all Mutt variables to stdout</td></tr><tr><td>-e</td><td>specify a config command to be run after initialization files are read</td></tr><tr><td>-f</td><td>specify a mailbox to load</td></tr><tr><td>-F</td><td>specify an alternate file to read initialization commands</td></tr><tr><td>-h</td><td>print help on command line options</td></tr><tr><td>-H</td><td>specify a draft file from which to read a header and body</td></tr><tr><td>-i</td><td>specify a file to include in a message composition</td></tr><tr><td>-m</td><td>specify a default mailbox type</td></tr><tr><td>-n</td><td>do not read the system Muttrc</td></tr><tr><td>-p</td><td>recall a postponed message</td></tr><tr><td>-Q</td><td>query a configuration variable</td></tr><tr><td>-R</td><td>open mailbox in read-only mode</td></tr><tr><td>-s</td><td>specify a subject (enclose in quotes if it contains spaces)</td></tr><tr><td>-v</td><td>show version number and compile-time definitions</td></tr><tr><td>-x</td><td>simulate the mailx(1) compose mode</td></tr><tr><td>-y</td><td>show a menu containing the files specified by the <span class="command"><strong>mailboxes</strong></span> command</td></tr><tr><td>-z</td><td>exit immediately if there are no messages in the mailbox</td></tr><tr><td>-Z</td><td>open the first folder with new message, exit immediately if none</td></tr></tbody></table></div></div><br class="table-break" /><p>
++</p><div class="table"><a id="tab-commandline-options"></a><p class="title"><b>Table 9.1. Command line options</b></p><div class="table-contents"><table summary="Command line options" border="1"><colgroup><col /><col /></colgroup><thead><tr><th>Option</th><th>Description</th></tr></thead><tbody><tr><td>-A</td><td>expand an alias</td></tr><tr><td>-a</td><td>attach a file to a message</td></tr><tr><td>-b</td><td>specify a blind carbon-copy (BCC) address</td></tr><tr><td>-c</td><td>specify a carbon-copy (Cc) address</td></tr><tr><td>-D</td><td>print the value of all Mutt variables to stdout</td></tr><tr><td>-d</td><td>log debugging output to ~/.muttdebug0 if complied with +DEBUG (level can be 1-5)</td></tr><tr><td>-e</td><td>specify a config command to be run after initialization files are read</td></tr><tr><td>-f</td><td>specify a mailbox to load</td></tr><tr><td>-F</td><td>specify an alternate file to read initialization commands</td></tr><tr><td>-h</td><td>print help on command line options</td></tr><tr><td>-H</td><td>specify a draft file from which to read a header and body</td></tr><tr><td>-i</td><td>specify a file to include in a message composition</td></tr><tr><td>-m</td><td>specify a default mailbox type</td></tr><tr><td>-n</td><td>do not read the system Muttrc</td></tr><tr><td>-p</td><td>recall a postponed message</td></tr><tr><td>-Q</td><td>query a configuration variable</td></tr><tr><td>-R</td><td>open mailbox in read-only mode</td></tr><tr><td>-s</td><td>specify a subject (enclose in quotes if it contains spaces)</td></tr><tr><td>-v</td><td>show version number and compile-time definitions</td></tr><tr><td>-x</td><td>simulate the mailx(1) compose mode</td></tr><tr><td>-y</td><td>show a menu containing the files specified by the <span class="command"><strong>mailboxes</strong></span> command</td></tr><tr><td>-z</td><td>exit immediately if there are no messages in the mailbox</td></tr><tr><td>-Z</td><td>open the first folder with new message, exit immediately if none</td></tr></tbody></table></div></div><br class="table-break" /><p>
+ To read messages in a mailbox
+ </p><div class="cmdsynopsis"><p><code class="command">mutt</code>  [<code class="option">-nz</code>] [<code class="option">-F</code>
+ <em class="replaceable"><code>muttrc</code></em>
+diff -up mutt-1.5.21/doc/Makefile.am.manhelp2 mutt-1.5.21/doc/Makefile.am
+--- mutt-1.5.21/doc/Makefile.am.manhelp2	2013-05-20 17:07:01.080436035 +0200
++++ mutt-1.5.21/doc/Makefile.am	2013-05-20 17:10:03.670432844 +0200
+@@ -13,6 +13,8 @@ EXTRA_DIST = dotlock.man		\
+         smime_keys.man                  \
+ 	muttbug.man			\
+ 	mutt.man			\
++	pgpewrap.man			\
++	pgpring.man			\
+ 	PGP-Notes.txt			\
+ 	applying-patches.txt		\
+ 	devel-notes.txt			\
+@@ -46,7 +48,7 @@ topsrcdir_DOCFILES = COPYRIGHT GPL INSTA
+ 
+ all: makedoc-all
+ 
+-makedoc-all: mutt.1 smime_keys.1 muttrc.man manual.html stamp-doc-rc stamp-doc-chunked manual.txt
++makedoc-all: mutt.1 smime_keys.1 muttrc.man manual.html stamp-doc-rc stamp-doc-chunked manual.txt pgpewrap.1 pgpring.1
+ 
+ install-data-local: makedoc-all instdoc
+ 	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(mandir)/man1
+@@ -54,6 +56,8 @@ install-data-local: makedoc-all instdoc
+ 	$(top_srcdir)/mkinstalldirs $(DESTDIR)$(sysconfdir)
+ 	./instdoc mutt.1 $(DESTDIR)$(mandir)/man1/mutt.1
+ 	./instdoc smime_keys.1 $(DESTDIR)$(mandir)/man1/smime_keys.1
++	./instdoc pgpewrap.1 $(DESTDIR)$(mandir)/man1/pgpewrap.1
++	./instdoc pgpring.1 $(DESTDIR)$(mandir)/man1/pgpring.1
+ 	./instdoc $(srcdir)/muttbug.man $(DESTDIR)$(mandir)/man1/flea.1
+ 	./instdoc $(srcdir)/muttbug.man $(DESTDIR)$(mandir)/man1/muttbug.1
+ 	test x@DOTLOCK_TARGET@ = x || ./instdoc $(srcdir)/dotlock.man \
+@@ -82,7 +86,7 @@ install-data-local: makedoc-all instdoc
+ 	fi
+ 
+ uninstall-local:
+-	for f in mutt.1 mutt_dotlock.1 flea.1 muttbug.1 smime_keys.1; do \
++	for f in mutt.1 mutt_dotlock.1 flea.1 muttbug.1 smime_keys.1 pgpewrap.1 pgpring.1; do \
+ 		rm -f $(DESTDIR)$(mandir)/man1/$$f ; \
+ 	done
+ 	for f in muttrc.5 mbox.5 mmdf.5 ; do \
+@@ -147,7 +151,7 @@ sortcheck: manual.xml
+ 	rm -rf vars.tmp.1 vars.tmp.2
+ 
+ clean-local:
+-	rm -f *~ *.html *.orig *.rej  stamp-doc-* *.ps mutt.1 smime_keys.1 muttrc.man
++	rm -f *~ *.html *.orig *.rej  stamp-doc-* *.ps mutt.1 smime_keys.1 muttrc.man pgpewrap.1 pgpring.1
+ 	rm -f *.aux *.log *.tex *.out
+ 
+ DISTCLEANFILES=manual.txt manual.html manual.xml manual.pdf html \
+@@ -171,6 +175,12 @@ EDIT = sed -e 's,@sysconfdir\@,$(sysconf
+ mutt.1: $(srcdir)/mutt.man
+ 	$(EDIT) $(srcdir)/mutt.man > $@
+ 
++pgpewrap.1: $(srcdir)/pgpewrap.man
++	$(EDIT) $(srcdir)/pgpewrap.man > $@
++
++pgpring.1: $(srcdir)/pgpring.man
++	$(EDIT) $(srcdir)/pgpring.man > $@
++
+ smime_keys.1: $(srcdir)/smime_keys.man
+ 	$(EDIT) $(srcdir)/smime_keys.man > $@
+ 
