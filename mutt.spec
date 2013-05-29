@@ -16,7 +16,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.21
-Release: 19%{?dist}
+Release: 20%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -177,6 +177,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Wed May 29 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-20
+- Fix patch for #750929
+  Resolves: #957542
+
 * Mon May 20 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-19
 - Fix missing options in doc and pgpring, pgpewrap man page
 

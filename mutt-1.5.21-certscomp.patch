@@ -7,7 +7,7 @@ diff -up mutt-1.5.21/mutt_ssl_gnutls.c.debug mutt-1.5.21/mutt_ssl_gnutls.c
  
 -    ptr = (unsigned char *)strstr((char*)b64_data.data, CERT_SEP) + 1;
 -    ptr = (unsigned char *)strstr((char*)ptr, CERT_SEP);
-+    ptr = (unsigned char *)memmem((char*)b64_data.data, b64_data.size, CERT_SEP, sizeof(CERT_SEP));
++    ptr = (unsigned char *)memmem((char*)b64_data.data, b64_data.size, CERT_SEP, sizeof(CERT_SEP-1));
 +    if (ptr == NULL)
 +    {
 +      gnutls_free(cert.data);
@@ -16,6 +16,6 @@ diff -up mutt-1.5.21/mutt_ssl_gnutls.c.debug mutt-1.5.21/mutt_ssl_gnutls.c
 +    }
  
 +    ptr += 1;
-+    ptr = (unsigned char *)memmem((char*)ptr, b64_data.size - (ptr - b64_data.data), CERT_SEP, sizeof(CERT_SEP));
++    ptr = (unsigned char *)memmem((char*)ptr, b64_data.size - (ptr - b64_data.data), CERT_SEP, sizeof(CERT_SEP-1));
      b64_data.size = b64_data.size - (ptr - b64_data.data);
      b64_data.data = ptr;
