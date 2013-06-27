@@ -16,7 +16,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.21
-Release: 20%{?dist}
+Release: 21%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -40,6 +40,7 @@ Patch14: mutt-1.5.21-writehead.patch
 Patch15: mutt-1.5.21-tmpdir.patch
 Patch16: mutt-1.5.21-verpeers.patch
 Patch17: mutt-1.5.21-manhelp.patch
+Patch18: mutt-1.5.21-tlsv1v2.patch
 Url: http://www.mutt.org/
 Requires: mailcap urlview
 BuildRequires: ncurses-devel
@@ -91,6 +92,7 @@ for selecting groups of messages.
 %patch15 -p1 -b .tmpdir
 %patch16 -p1 -b .verpeers
 %patch17 -p1 -b .manhelp
+%patch18 -p1 -b .tlsv1v2
 
 sed -i.gpgerror 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 
@@ -177,6 +179,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Thu Jun 27 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-21
+- Backported support for TLS 1.2 and TLS 1.2 protocols
+  Resolves: #957840
+
 * Wed May 29 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-20
 - Fix patch for #750929
   Resolves: #957542
@@ -615,10 +621,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 * Sat Jan  1 2000 Bill Nottingham <notting@redhat.com>
 - fix an odd y2k issue on receiving mail from ancient clients
 
-* Fri Oct 21 1999 Bill Nottingham <notting@redhat.com>
+* Thu Oct 21 1999 Bill Nottingham <notting@redhat.com>
 - one-point-oh.
 
-* Fri Sep 25 1999 Bill Nottingham <notting@redhat.com>
+* Sat Sep 25 1999 Bill Nottingham <notting@redhat.com>
 - add a buffer overflow patch
 
 * Tue Aug 31 1999 Bill Nottingham <notting@redhat.com>
