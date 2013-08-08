@@ -13,10 +13,12 @@
 %bcond_with gdbm
 %bcond_without gpgme
 
+%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
+
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.21
-Release: 23%{?dist}
+Release: 24%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -127,7 +129,7 @@ fi
 %endif
 %{!?with_idn:	--without-idn} \
 %{?with_gpgme:	--enable-gpgme} \
-		--with-docdir=%{_docdir}/%{name}-%{version}
+		--with-docdir=%{_pkgdocdir}
 
 make %{?_smp_mflags}
 
@@ -155,7 +157,7 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/{*.dist,mime.types}
 rm -f $RPM_BUILD_ROOT%{_bindir}/{flea,muttbug}
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/{flea,muttbug,mutt_dotlock}.1*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/{mbox,mmdf}.5*
-rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/INSTALL
+rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/INSTALL
 
 # provide muttrc.local(5): the same as muttrc(5)
 ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
@@ -165,9 +167,7 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %files -f %{name}.lang
 %config(noreplace) %{_sysconfdir}/Muttrc
 %config(noreplace) %{_sysconfdir}/Muttrc.local
-%doc COPYRIGHT ChangeLog GPL NEWS README* UPDATING mutt_ldap_query
-%doc contrib/*.rc contrib/sample.* contrib/colors.*
-%doc doc/manual.txt doc/smime-notes.txt
+%doc UPDATING mutt_ldap_query
 %{_bindir}/mutt
 %{_bindir}/pgpring
 %{_bindir}/pgpewrap
@@ -179,6 +179,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Thu Aug  8 2013 Ville Skyttä <ville.skytta@iki.fi> - 5:1.5.21-24
+- Fix FTBFS with unversioned %%{_docdir_fmt} (#992311), drop duplicate docs.
+
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5:1.5.21-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
