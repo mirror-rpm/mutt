@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.21
-Release: 24%{?dist}
+Release: 25%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -157,7 +157,7 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/{*.dist,mime.types}
 rm -f $RPM_BUILD_ROOT%{_bindir}/{flea,muttbug}
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/{flea,muttbug,mutt_dotlock}.1*
 rm -f $RPM_BUILD_ROOT%{_mandir}/man5/{mbox,mmdf}.5*
-rm -f $RPM_BUILD_ROOT%{_pkgdocdir}/INSTALL
+rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}
 
 # provide muttrc.local(5): the same as muttrc(5)
 ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
@@ -167,7 +167,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %files -f %{name}.lang
 %config(noreplace) %{_sysconfdir}/Muttrc
 %config(noreplace) %{_sysconfdir}/Muttrc.local
-%doc UPDATING mutt_ldap_query
+%doc COPYRIGHT ChangeLog GPL NEWS README* UPDATING mutt_ldap_query
+%doc contrib/*.rc contrib/sample.* contrib/colors.*
+%doc doc/manual.txt doc/smime-notes.txt
 %{_bindir}/mutt
 %{_bindir}/pgpring
 %{_bindir}/pgpewrap
@@ -179,6 +181,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Mon Sep 23 2013 Miroslav Lichvar <mlichvar@redhat.com> - 5:1.5.21-25
+- Revert to packaging only selected doc files
+
 * Thu Aug  8 2013 Ville Skyttä <ville.skytta@iki.fi> - 5:1.5.21-24
 - Fix FTBFS with unversioned %%{_docdir_fmt} (#992311), drop duplicate docs.
 
