@@ -1,21 +1,22 @@
-diff -up mutt-1.5.21/mutt_ssl_gnutls.c.debug mutt-1.5.21/mutt_ssl_gnutls.c
---- mutt-1.5.21/mutt_ssl_gnutls.c.debug	2011-11-03 15:56:29.992235238 +0100
-+++ mutt-1.5.21/mutt_ssl_gnutls.c	2011-11-03 16:23:42.960123578 +0100
-@@ -434,9 +434,16 @@ static int tls_compare_certificates (con
-       return 0;
+Upstream fix:
+http://dev.mutt.org/trac/ticket/3547
+
+--- a/mutt_ssl_gnutls.c
++++ b/mutt_ssl_gnutls.c
+@@ -440,6 +440,14 @@
      }
  
 -    ptr = (unsigned char *)strstr((char*)b64_data.data, CERT_SEP) + 1;
 -    ptr = (unsigned char *)strstr((char*)ptr, CERT_SEP);
-+    ptr = (unsigned char *)memmem((char*)b64_data.data, b64_data.size, CERT_SEP, sizeof(CERT_SEP-1));
-+    if (ptr == NULL)
++    /* find start of cert, skipping junk */
++    ptr = (unsigned char *)strstr((char*)b64_data.data, CERT_SEP);
++    if (!ptr)
 +    {
 +      gnutls_free(cert.data);
 +      FREE (&b64_data_data);
 +      return 0;
 +    }
++    /* find start of next cert */
++    ptr = (unsigned char *)strstr((char*)ptr + 1, CERT_SEP);
  
-+    ptr += 1;
-+    ptr = (unsigned char *)memmem((char*)ptr, b64_data.size - (ptr - b64_data.data), CERT_SEP, sizeof(CERT_SEP-1));
      b64_data.size = b64_data.size - (ptr - b64_data.data);
-     b64_data.data = ptr;

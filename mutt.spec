@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.21
-Release: 25%{?dist}
+Release: 26%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -181,6 +181,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Mon Oct 21 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
+- Fixed patch for certificates comparison
+
 * Mon Sep 23 2013 Miroslav Lichvar <mlichvar@redhat.com> - 5:1.5.21-25
 - Revert to packaging only selected doc files
 
