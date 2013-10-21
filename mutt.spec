@@ -181,7 +181,7 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
-* Mon Oct 21 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
+* Mon Oct 21 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
 - Fixed patch for certificates comparison
 
 * Mon Sep 23 2013 Miroslav Lichvar <mlichvar@redhat.com> - 5:1.5.21-25
