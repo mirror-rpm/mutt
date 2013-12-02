@@ -28,7 +28,6 @@ Source: ftp://ftp.mutt.org/pub/mutt/devel/mutt-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch3: mutt-1.5.18-muttrc.patch
 Patch4: mutt-1.5.18-manual.patch
-Patch6: mutt-1.5.21-hdrcnt.patch
 Patch7: mutt-1.5.21-testcert.patch
 Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
@@ -76,7 +75,6 @@ for selecting groups of messages.
 #FIXME ./prepare -V
 %patch3 -p1 -b .muttrc
 %patch4 -p1 -b .manual
-%patch6 -p1 -b .hdrcnt
 %patch7 -p1 -b .testcert
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
