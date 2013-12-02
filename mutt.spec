@@ -28,7 +28,6 @@ Source: ftp://ftp.mutt.org/pub/mutt/devel/mutt-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch3: mutt-1.5.18-muttrc.patch
 Patch4: mutt-1.5.18-manual.patch
-Patch7: mutt-1.5.21-testcert.patch
 Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
 Patch10: mutt-1.5.21-pophash.patch
@@ -75,7 +74,6 @@ for selecting groups of messages.
 #FIXME ./prepare -V
 %patch3 -p1 -b .muttrc
 %patch4 -p1 -b .manual
-%patch7 -p1 -b .testcert
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
 %patch10 -p1 -b .pophash
@@ -176,7 +174,8 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %changelog
 * Mon Dec 02 2013 Jan Pacner <jpacner@redhat.com> - 5:1.5.22-1
 - new release (Resolves: #1034263)
-- use inline sed instead of patch
+- use inline sed instead of nodotlock patch
+- patches removed: testcert, hdrcnt, certscomp, updating
 
 * Mon Oct 21 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
 - Fixed patch for certificates comparison
