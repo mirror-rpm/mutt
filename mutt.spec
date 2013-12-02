@@ -17,8 +17,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.5.21
-Release: 26%{?dist}
+Version: 1.5.22
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -26,7 +26,6 @@ License: GPLv2+ and Public Domain
 Group: Applications/Internet
 Source: ftp://ftp.mutt.org/pub/mutt/devel/mutt-%{version}.tar.gz
 Source1: mutt_ldap_query
-Patch2: mutt-1.5.13-nodotlock.patch
 Patch3: mutt-1.5.18-muttrc.patch
 Patch4: mutt-1.5.18-manual.patch
 Patch5: mutt-1.5.21-updating.patch
@@ -35,7 +34,8 @@ Patch7: mutt-1.5.21-testcert.patch
 Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
 Patch10: mutt-1.5.21-pophash.patch
-Patch11: mutt-1.5.21-certscomp.patch
+#FIXME fixed in upstream
+#Patch11: mutt-1.5.21-certscomp.patch
 Patch12: mutt-1.5.21-notation.patch
 Patch13: mutt-1.5.21-syncdebug.patch
 Patch14: mutt-1.5.21-writehead.patch
@@ -76,9 +76,8 @@ for selecting groups of messages.
 
 %prep
 %setup -q
+#FIXME
 #./prepare -V
-# Thou shalt use fcntl, and only fcntl
-%patch2 -p1 -b .nodl
 %patch3 -p1 -b .muttrc
 %patch4 -p1 -b .manual
 %patch5 -p1 -b .updating
@@ -87,7 +86,8 @@ for selecting groups of messages.
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
 %patch10 -p1 -b .pophash
-%patch11 -p1 -b .certscomp
+#FIXME
+#%patch11 -p1 -b .certscomp
 %patch12 -p1 -b .notation
 %patch13 -p1 -b .syncdebug
 %patch14 -p1 -b .writehead
@@ -96,7 +96,9 @@ for selecting groups of messages.
 %patch17 -p1 -b .manhelp
 %patch18 -p1 -b .tlsv1v2
 
-sed -i.gpgerror 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
+sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
+# disable dotlock program
+sed -i -r 's/(USE_DOTLOCK, *)[0-9]+/\10/g' configure.ac
 
 install -p -m644 %{SOURCE1} mutt_ldap_query
 
@@ -125,7 +127,7 @@ fi
 %{?with_sasl:	--with-sasl} \
 %endif
 %if %{with imap}
-%{?with_gss: 	--with-gss} \
+%{?with_gss:	--with-gss} \
 %endif
 %{!?with_idn:	--without-idn} \
 %{?with_gpgme:	--enable-gpgme} \
@@ -181,6 +183,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man5/muttrc.*
 
 %changelog
+* Mon Dec 02 2013 Jan Pacner <jpacner@redhat.com> - 5:1.5.22-1
+- new release (Resolves: #1034263)
+- use inline sed instead of patch
+
 * Mon Oct 21 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
 - Fixed patch for certificates comparison
 
