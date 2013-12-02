@@ -28,14 +28,11 @@ Source: ftp://ftp.mutt.org/pub/mutt/devel/mutt-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch3: mutt-1.5.18-muttrc.patch
 Patch4: mutt-1.5.18-manual.patch
-Patch5: mutt-1.5.21-updating.patch
 Patch6: mutt-1.5.21-hdrcnt.patch
 Patch7: mutt-1.5.21-testcert.patch
 Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
 Patch10: mutt-1.5.21-pophash.patch
-#FIXME fixed in upstream
-#Patch11: mutt-1.5.21-certscomp.patch
 Patch12: mutt-1.5.21-notation.patch
 Patch13: mutt-1.5.21-syncdebug.patch
 Patch14: mutt-1.5.21-writehead.patch
@@ -76,18 +73,14 @@ for selecting groups of messages.
 
 %prep
 %setup -q
-#FIXME
-#./prepare -V
+#FIXME ./prepare -V
 %patch3 -p1 -b .muttrc
 %patch4 -p1 -b .manual
-%patch5 -p1 -b .updating
 %patch6 -p1 -b .hdrcnt
 %patch7 -p1 -b .testcert
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
 %patch10 -p1 -b .pophash
-#FIXME
-#%patch11 -p1 -b .certscomp
 %patch12 -p1 -b .notation
 %patch13 -p1 -b .syncdebug
 %patch14 -p1 -b .writehead
