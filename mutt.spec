@@ -31,7 +31,6 @@ Patch4: mutt-1.5.18-manual.patch
 Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
 Patch13: mutt-1.5.21-syncdebug.patch
-Patch14: mutt-1.5.21-writehead.patch
 Patch15: mutt-1.5.21-tmpdir.patch
 Patch16: mutt-1.5.21-verpeers.patch
 Patch17: mutt-1.5.21-manhelp.patch
@@ -75,7 +74,6 @@ for selecting groups of messages.
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
 %patch13 -p1 -b .syncdebug
-%patch14 -p1 -b .writehead
 %patch15 -p1 -b .tmpdir
 %patch16 -p1 -b .verpeers
 %patch17 -p1 -b .manhelp
@@ -171,7 +169,7 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 * Mon Dec 02 2013 Jan Pacner <jpacner@redhat.com> - 5:1.5.22-1
 - new release (Resolves: #1034263)
 - use inline sed instead of nodotlock patch
-- patches removed: testcert, hdrcnt, certscomp, updating, pophash, notation
+- patches removed: testcert, hdrcnt, certscomp, updating, pophash, notation, writehead
 
 * Mon Oct 21 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
 - Fixed patch for certificates comparison
