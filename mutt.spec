@@ -31,9 +31,8 @@ Patch4: mutt-1.5.18-manual.patch
 Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
 Patch13: mutt-1.5.21-syncdebug.patch
-Patch16: mutt-1.5.21-verpeers.patch
+# FIXME find in upstream +DEBUG0
 Patch17: mutt-1.5.21-manhelp.patch
-Patch18: mutt-1.5.21-tlsv1v2.patch
 Url: http://www.mutt.org/
 Requires: mailcap urlview
 BuildRequires: ncurses-devel
@@ -73,9 +72,7 @@ for selecting groups of messages.
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
 %patch13 -p1 -b .syncdebug
-%patch16 -p1 -b .verpeers
 %patch17 -p1 -b .manhelp
-%patch18 -p1 -b .tlsv1v2
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable dotlock program
@@ -168,7 +165,8 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 - new release (Resolves: #1034263)
 - use inline sed instead of nodotlock patch
 - patches removed: testcert, hdrcnt, certscomp, updating, pophash,
-  notation, writehead, tmpdir
+  notation, writehead, tmpdir, verpeers, tlsv1v2
+- manhelp patch adjusted (only DEBUG logging capability was left)
 
 * Mon Oct 21 2013 Honza Horak <hhorak@redhat.com> - 5:1.5.21-26
 - Fixed patch for certificates comparison
