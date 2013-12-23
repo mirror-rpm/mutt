@@ -32,7 +32,7 @@ Patch8: mutt-1.5.21-cabundle.patch
 Patch9: mutt-1.5.21-gpgme-1.2.0.patch
 Patch13: mutt-1.5.21-syncdebug.patch
 # FIXME find in upstream +DEBUG0
-Patch17: mutt-1.5.21-manhelp.patch
+#Patch17: mutt-1.5.21-manhelp.patch
 Url: http://www.mutt.org/
 Requires: mailcap urlview
 BuildRequires: ncurses-devel
@@ -72,7 +72,8 @@ for selecting groups of messages.
 %patch8 -p1 -b .cabundle
 %patch9 -p1 -b .gpgme-1.2.0
 %patch13 -p1 -b .syncdebug
-%patch17 -p1 -b .manhelp
+#FIXME
+#%patch17 -p1 -b .manhelp
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable dotlock program
