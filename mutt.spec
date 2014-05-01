@@ -71,8 +71,8 @@ for selecting groups of messages.
 %prep
 # unpack; cd
 %setup -q
-# mutt`s autoreconf --install && ./configure
-#./prepare -V
+# do not run ./prepare -V, because it also runs ./configure
+autoreconf --install
 %patch1 -p1 -b .muttrc
 %patch2 -p1 -b .cabundle
 %patch3 -p1 -b .syncdebug
