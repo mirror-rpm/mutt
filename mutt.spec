@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -71,6 +71,8 @@ for selecting groups of messages.
 %prep
 # unpack; cd
 %setup -q
+# disable mutt_dotlock program - disable post-install mutt_dotlock checking
+sed -i -r 's|install-exec-hook|my-useless-label|' Makefile.am
 # do not run ./prepare -V, because it also runs ./configure
 autoreconf --install
 %patch1 -p1 -b .muttrc
@@ -81,8 +83,6 @@ autoreconf --install
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
 sed -i -r 's|^(.*USE_DOTLOCK.*)$|//\1|' configure
-# disable mutt_dotlock program - disable post-install mutt_dotlock checking
-sed -i -r 's|install-exec-hook|my-useless-label|' Makefile.am
 
 install -p -m644 %{SOURCE1} mutt_ldap_query
 
@@ -183,6 +183,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu May 15 2014 Dan Horák <dan[at]danny.cz> - 5:1.5.23-2
+- update Makefile.am before running autoreconf
+
 * Tue Apr 29 2014 Jan Pacner <jpacner@redhat.com> - 5:1.5.23-1
 - Resolves: #1034263 (new version due to CVE)
 - patch cleanup (upstream fixes)
