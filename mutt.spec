@@ -1,4 +1,4 @@
-%bcond_with debug
+%bcond_without debug
 %bcond_without imap
 %bcond_without pop
 %bcond_without smtp
@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -183,6 +183,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon May 26 2014 Jan Pacner <jpacner@redhat.com> - 5:1.5.23-3
+- Resolves: #1096756 ([RFE] compile with --enable-debug by default)
+
 * Thu May 15 2014 Dan Horák <dan[at]danny.cz> - 5:1.5.23-2
 - update Makefile.am before running autoreconf
 
