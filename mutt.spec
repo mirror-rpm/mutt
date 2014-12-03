@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -32,6 +32,7 @@ Patch2: mutt-1.5.21-cabundle.patch
 Patch3: mutt-1.5.21-syncdebug.patch
 # FIXME make it to upstream
 Patch4: mutt-1.5.23-add_debug_option.patch
+Patch5: mutt-1.5.23-sendlib.patch
 Url: http://www.mutt.org/
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -79,6 +80,8 @@ autoreconf --install
 %patch2 -p1 -b .cabundle
 %patch3 -p1 -b .syncdebug
 %patch4 -p1 -b .add_debug_option
+%patch5 -p1 -b .sendlib
+
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -183,6 +186,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Dec 03 2014 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-6
+- resolves #1168464 (CVE-2014-9116)
+
 * Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5:1.5.23-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
 
