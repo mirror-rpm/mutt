@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -186,6 +186,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Dec 03 2014 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-7
+- added patch file forgotten in last commit
+
+
 * Wed Dec 03 2014 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-6
 - resolves #1168464 (CVE-2014-9116)
 
