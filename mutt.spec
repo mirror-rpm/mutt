@@ -12,19 +12,22 @@
 %bcond_with qdbm
 %bcond_with gdbm
 %bcond_without gpgme
+%global commithash 17a4f92e4a95
+%global snapver 20150609hg%{?commithash}
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 8%{?dist}
+Release: 8.%{?snapver}%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
 License: GPLv2+ and Public Domain
 Group: Applications/Internet
-Source: ftp://ftp.mutt.org/mutt/devel/mutt-%{version}.tar.gz
+# hg snapshot created from http://dev.mutt.org/hg/mutt
+Source: %{name}-%{version}-%{?snapver}.tar.gz
 Source1: mutt_ldap_query
 Patch1: mutt-1.5.18-muttrc.patch
 Patch2: mutt-1.5.21-cabundle.patch
@@ -32,7 +35,6 @@ Patch2: mutt-1.5.21-cabundle.patch
 Patch3: mutt-1.5.21-syncdebug.patch
 # FIXME make it to upstream
 Patch4: mutt-1.5.23-add_debug_option.patch
-Patch5: mutt-1.5.23-sendlib.patch
 Patch7: mutt-1.5.23-domainname.patch
 Url: http://www.mutt.org/
 Requires: mailcap, urlview
@@ -72,7 +74,7 @@ for selecting groups of messages.
 
 %prep
 # unpack; cd
-%setup -q
+%setup -q -n %{name}-%{?commithash}
 # disable mutt_dotlock program - disable post-install mutt_dotlock checking
 sed -i -r 's|install-exec-hook|my-useless-label|' Makefile.am
 # do not run ./prepare -V, because it also runs ./configure
@@ -81,7 +83,6 @@ autoreconf --install
 %patch2 -p1 -b .cabundle
 %patch3 -p1 -b .syncdebug
 %patch4 -p1 -b .add_debug_option
-%patch5 -p1 -b .sendlib
 %patch7 -p1 -b .domainname
 
 
@@ -188,9 +189,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
-* Tue Jun 02 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-8
-- Resolves #1227288
-- Do not send "From" header without the host part (eg. <foo@>)
+* Tue Jun 09 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-8.20150609hg17a4f92e4a95
+- Update to hg snapshot 17a4f92e4a95
+- Resolves #1227288 (Do not send "From" header without the
+  host part (eg. <foo@>))
 
 * Wed Dec 03 2014 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-7
 - added patch file forgotten in last commit
