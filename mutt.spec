@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 8.%{?snapver}%{?dist}
+Release: 9.%{?snapver}%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -189,6 +189,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5:1.5.23-9.20150609hg17a4f92e4a95
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Tue Jun 09 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-8.20150609hg17a4f92e4a95
 - Update to hg snapshot 17a4f92e4a95
 - Resolves #1227288 (Do not send "From" header without the
