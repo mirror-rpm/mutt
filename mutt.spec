@@ -18,7 +18,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -34,6 +34,7 @@ Patch3: mutt-1.5.21-syncdebug.patch
 Patch4: mutt-1.5.23-add_debug_option.patch
 Patch5: mutt-1.5.23-sendlib.patch
 Patch7: mutt-1.5.23-domainname.patch
+Patch8: mutt-1.5.23-system_certs.patch
 Url: http://www.mutt.org/
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -83,6 +84,7 @@ autoreconf --install
 %patch4 -p1 -b .add_debug_option
 %patch5 -p1 -b .sendlib
 %patch7 -p1 -b .domainname
+%patch8 -p1 -b .system_certs
 
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
@@ -188,6 +190,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-9
+- Make system CA bundle default in mutt
+- Resolves: #1069778
+
 * Tue Jun 02 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-8
 - Resolves #1227288
 - Do not send "From" header without the host part (eg. <foo@>)
