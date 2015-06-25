@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 9.%{?snapver}%{?dist}
+Release: 10.%{?snapver}%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -36,6 +36,7 @@ Patch3: mutt-1.5.21-syncdebug.patch
 # FIXME make it to upstream
 Patch4: mutt-1.5.23-add_debug_option.patch
 Patch7: mutt-1.5.23-domainname.patch
+Patch8: mutt-1.5.23-system_certs.patch
 Url: http://www.mutt.org/
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -84,7 +85,7 @@ autoreconf --install
 %patch3 -p1 -b .syncdebug
 %patch4 -p1 -b .add_debug_option
 %patch7 -p1 -b .domainname
-
+%patch8  -p1 -b .system_certs
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -189,6 +190,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-10.20150609hg17a4f92e4a95
+- Make system CA bundle default in mutt
+- Resolves: #1069778
+
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5:1.5.23-9.20150609hg17a4f92e4a95
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
