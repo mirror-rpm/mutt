@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.5.23
-Release: 10.%{?snapver}%{?dist}
+Release: 11.%{?snapver}%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -37,6 +37,7 @@ Patch3: mutt-1.5.21-syncdebug.patch
 Patch4: mutt-1.5.23-add_debug_option.patch
 Patch7: mutt-1.5.23-domainname.patch
 Patch8: mutt-1.5.23-system_certs.patch
+Patch9: mutt-1.5.23-ssl_ciphers.patch
 Url: http://www.mutt.org/
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -86,6 +87,7 @@ autoreconf --install
 %patch4 -p1 -b .add_debug_option
 %patch7 -p1 -b .domainname
 %patch8  -p1 -b .system_certs
+%patch9  -p1 -b .ssl_ciphers
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -98,6 +100,11 @@ if echo %{release} | grep -E -q '%{hgreldate}'; then
   echo -n 'const char *ReleaseDate = ' > reldate.h
   echo %{release} | sed -r 's/.*%{hgreldate}.*/"\1-\2-\3";/' >> reldate.h
 fi
+
+# remove mutt_ssl.c to be sure it won't be used because it violates
+# Packaging:CryptoPolicies
+# https://fedoraproject.org/wiki/Packaging:CryptoPolicies
+rm -f mutt_ssl.c
 
 
 %build
@@ -190,6 +197,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Aug 26 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-11.20150609hg17a4f92e4a95
+- Utilize system-wide crypto-policies
+- rhbz#1179324
+
 * Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-10.20150609hg17a4f92e4a95
 - Make system CA bundle default in mutt
 - Resolves: #1069778
