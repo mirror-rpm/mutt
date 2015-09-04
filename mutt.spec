@@ -17,14 +17,15 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.5.23
-Release: 9%{?dist}
+Version: 1.5.24
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
 License: GPLv2+ and Public Domain
 Group: Applications/Internet
-Source: ftp://ftp.mutt.org/mutt/devel/mutt-%{version}.tar.gz
+# hg snapshot created from http://dev.mutt.org/hg/mutt
+Source: %{name}-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch1: mutt-1.5.18-muttrc.patch
 Patch2: mutt-1.5.21-cabundle.patch
@@ -32,9 +33,9 @@ Patch2: mutt-1.5.21-cabundle.patch
 Patch3: mutt-1.5.21-syncdebug.patch
 # FIXME make it to upstream
 Patch4: mutt-1.5.23-add_debug_option.patch
-Patch5: mutt-1.5.23-sendlib.patch
 Patch7: mutt-1.5.23-domainname.patch
 Patch8: mutt-1.5.23-system_certs.patch
+Patch9: mutt-1.5.23-ssl_ciphers.patch
 Url: http://www.mutt.org/
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -82,10 +83,9 @@ autoreconf --install
 %patch2 -p1 -b .cabundle
 %patch3 -p1 -b .syncdebug
 %patch4 -p1 -b .add_debug_option
-%patch5 -p1 -b .sendlib
 %patch7 -p1 -b .domainname
-%patch8 -p1 -b .system_certs
-
+%patch8  -p1 -b .system_certs
+%patch9  -p1 -b .ssl_ciphers
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -98,6 +98,11 @@ if echo %{release} | grep -E -q '%{hgreldate}'; then
   echo -n 'const char *ReleaseDate = ' > reldate.h
   echo %{release} | sed -r 's/.*%{hgreldate}.*/"\1-\2-\3";/' >> reldate.h
 fi
+
+# remove mutt_ssl.c to be sure it won't be used because it violates
+# Packaging:CryptoPolicies
+# https://fedoraproject.org/wiki/Packaging:CryptoPolicies
+rm -f mutt_ssl.c
 
 
 %build
@@ -190,6 +195,10 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu Sep 04 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.24-1
+- Updated to 1.5.24 (Resolves: rhbz#1259332)
+- Utilize system-wide crypto-policies (Resolves: rhbz#1179324)
+
 * Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-9
 - Make system CA bundle default in mutt
 - Resolves: #1069778
