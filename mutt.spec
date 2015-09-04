@@ -12,22 +12,20 @@
 %bcond_with qdbm
 %bcond_with gdbm
 %bcond_without gpgme
-%global commithash 17a4f92e4a95
-%global snapver 20150609hg%{?commithash}
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.5.23
-Release: 11.%{?snapver}%{?dist}
+Version: 1.5.24
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
 License: GPLv2+ and Public Domain
 Group: Applications/Internet
 # hg snapshot created from http://dev.mutt.org/hg/mutt
-Source: %{name}-%{version}-%{?snapver}.tar.gz
+Source: %{name}-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch1: mutt-1.5.18-muttrc.patch
 Patch2: mutt-1.5.21-cabundle.patch
@@ -76,7 +74,7 @@ for selecting groups of messages.
 
 %prep
 # unpack; cd
-%setup -q -n %{name}-%{?commithash}
+%setup -q
 # disable mutt_dotlock program - disable post-install mutt_dotlock checking
 sed -i -r 's|install-exec-hook|my-useless-label|' Makefile.am
 # do not run ./prepare -V, because it also runs ./configure
@@ -197,6 +195,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu Sep 04 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.24-1
+- New release, resolves rhbz#1259332
+
 * Wed Aug 26 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-11.20150609hg17a4f92e4a95
 - Utilize system-wide crypto-policies
 - rhbz#1179324
