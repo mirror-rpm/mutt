@@ -199,23 +199,16 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
 * Fri Sep 04 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.24-1
-- New release, resolves rhbz#1259332
+- Updated to 1.5.24 (Resolves: rhbz#1259332)
+- Utilize system-wide crypto-policies (Resolves: rhbz#1179324)
 
-* Wed Aug 26 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-11.20150609hg17a4f92e4a95
-- Utilize system-wide crypto-policies
-- rhbz#1179324
-
-* Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-10.20150609hg17a4f92e4a95
+* Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-9
 - Make system CA bundle default in mutt
 - Resolves: #1069778
 
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5:1.5.23-9.20150609hg17a4f92e4a95
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Tue Jun 09 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-8.20150609hg17a4f92e4a95
-- Update to hg snapshot 17a4f92e4a95
-- Resolves #1227288 (Do not send "From" header without the
-  host part (eg. <foo@>))
+* Tue Jun 02 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-8
+- Resolves #1227288
+- Do not send "From" header without the host part (eg. <foo@>)
 
 * Wed Dec 03 2014 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-7
 - added patch file forgotten in last commit
