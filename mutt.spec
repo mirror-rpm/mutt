@@ -17,7 +17,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.6.0
+Version: 1.6.1
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -191,6 +191,9 @@ ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon May 02 2016 Fabio Alessandro Locati <fabio@locati.cc> - 5:1.6.1-1
+- Upgrade to 1.6.1
+
 * Mon Apr 18 2016 Fabio Alessandro Locati <fabio@locati.cc> - 5:1.6.0-1
 - Upgrade to 1.6.0
 - Drop patch domainname since it should not be needed any more
