@@ -39,6 +39,7 @@ Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
 # manual generation
 BuildRequires: /usr/bin/xsltproc, docbook-style-xsl, perl
+BuildRequires: perl-generators
 # html manual -> txt manual conversion (lynx messes up the encoding)
 BuildRequires: w3m
 
