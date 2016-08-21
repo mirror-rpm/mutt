@@ -12,6 +12,7 @@
 %bcond_with qdbm
 %bcond_with gdbm
 %bcond_without gpgme
+%bcond_with sidebar
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
@@ -34,7 +35,7 @@ Patch3: mutt-1.7.0-syncdebug.patch
 # FIXME make it to upstream
 Patch8: mutt-1.5.23-system_certs.patch
 Patch9: mutt-1.5.23-ssl_ciphers.patch
-Url: http://www.mutt.org/
+Url: http://www.mutt.org
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
 # manual generation
@@ -81,8 +82,8 @@ autoreconf --install
 %patch1 -p1 -b .muttrc
 %patch2 -p1 -b .cabundle
 %patch3 -p1 -b .syncdebug
-%patch8  -p1 -b .system_certs
-%patch9  -p1 -b .ssl_ciphers
+%patch8 -p1 -b .system_certs
+%patch9 -p1 -b .ssl_ciphers
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -129,7 +130,7 @@ rm -f mutt_ssl.c
 \
     %{!?with_idn:	--without-idn} \
     %{?with_gpgme:	--enable-gpgme} \
-    --enable-sidebar \
+    %{?with_sidebar: --enable-sidebar} \
     --with-docdir=%{_pkgdocdir}
 
 make %{?_smp_mflags}
@@ -139,48 +140,50 @@ sed -i -r 's/<a id="id[a-z0-9]\+">/<a id="id">/g' doc/manual.html
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%{buildroot}
 
 # we like GPG here
 cat contrib/gpg.rc >> \
-      $RPM_BUILD_ROOT%{_sysconfdir}/Muttrc
+      %{buildroot}%{_sysconfdir}/Muttrc
 
 grep -5 "^color" contrib/sample.muttrc >> \
-      $RPM_BUILD_ROOT%{_sysconfdir}/Muttrc
+      %{buildroot}%{_sysconfdir}/Muttrc
 
-cat >> $RPM_BUILD_ROOT%{_sysconfdir}/Muttrc <<\EOF
+cat >> %{buildroot}%{_sysconfdir}/Muttrc <<\EOF
 source %{_sysconfdir}/Muttrc.local
 EOF
 
 echo "# Local configuration for Mutt." > \
-      $RPM_BUILD_ROOT%{_sysconfdir}/Muttrc.local
+      %{buildroot}%{_sysconfdir}/Muttrc.local
 
 # remove unpackaged files from the buildroot
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/*.dist
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/mime.types
+rm -f %{buildroot}%{_sysconfdir}/*.dist
+rm -f %{buildroot}%{_sysconfdir}/mime.types
 # disable mutt_dotlock program - remove the compiled binary
-rm -f $RPM_BUILD_ROOT%{_bindir}/mutt_dotlock
-rm -f $RPM_BUILD_ROOT%{_bindir}/muttbug
-rm -f $RPM_BUILD_ROOT%{_bindir}/flea
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/mutt_dotlock.1*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/muttbug.1*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/flea.1*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man5/mbox.5*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man5/mmdf.5*
-rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}
+rm -f %{buildroot}%{_bindir}/mutt_dotlock
+rm -f %{buildroot}%{_bindir}/muttbug
+rm -f %{buildroot}%{_bindir}/flea
+rm -f %{buildroot}%{_mandir}/man1/mutt_dotlock.1*
+rm -f %{buildroot}%{_mandir}/man1/muttbug.1*
+rm -f %{buildroot}%{_mandir}/man1/flea.1*
+rm -f %{buildroot}%{_mandir}/man5/mbox.5*
+rm -f %{buildroot}%{_mandir}/man5/mmdf.5*
+rm -rf %{buildroot}%{_pkgdocdir}
 
 # provide muttrc.local(5): the same as muttrc(5)
-ln -sf ./muttrc.5 $RPM_BUILD_ROOT%{_mandir}/man5/muttrc.local.5
+ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 %find_lang %{name}
 
 
 %files -f %{name}.lang
-%config(noreplace) %{_sysconfdir}/Muttrc
-%config(noreplace) %{_sysconfdir}/Muttrc.local
-%doc COPYRIGHT ChangeLog GPL NEWS README* UPDATING mutt_ldap_query
+%{!?_licensedir:%global license %doc}
+%license COPYRIGHT GPL
+%doc ChangeLog NEWS README* UPDATING mutt_ldap_query
 %doc contrib/*.rc contrib/sample.* contrib/colors.*
 %doc doc/manual.html doc/manual.txt doc/smime-notes.txt
+%config(noreplace) %{_sysconfdir}/Muttrc
+%config(noreplace) %{_sysconfdir}/Muttrc.local
 %{_bindir}/mutt
 %{_bindir}/pgpring
 %{_bindir}/pgpewrap
