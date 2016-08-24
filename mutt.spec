@@ -12,7 +12,7 @@
 %bcond_with qdbm
 %bcond_with gdbm
 %bcond_without gpgme
-%bcond_with sidebar
+%bcond_without sidebar
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
