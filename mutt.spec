@@ -18,7 +18,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.7.0
+Version: 1.7.1
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -29,7 +29,7 @@ Group: Applications/Internet
 Source: ftp://ftp.mutt.org/pub/%{name}/%{name}-%{version}.tar.gz
 Source1: mutt_ldap_query
 Patch1: mutt-1.5.18-muttrc.patch
-Patch2: mutt-1.5.21-cabundle.patch
+Patch2: mutt-1.7.1-cabundle.patch
 # https://dev.mutt.org/trac/ticket/3569
 Patch3: mutt-1.7.0-syncdebug.patch
 # FIXME make it to upstream
@@ -196,6 +196,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Sun Oct 09 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.1-1
+- Upgrade to 1.7.1
+- Rebase cabundle patch
+
 * Sat Aug 20 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.0-1
 - Upgrade to 1.7.0
 

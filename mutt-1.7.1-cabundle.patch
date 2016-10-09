@@ -1,19 +1,19 @@
-diff -up mutt-1.5.21/contrib/Makefile.am.cabundle mutt-1.5.21/contrib/Makefile.am
---- mutt-1.5.21/contrib/Makefile.am.cabundle	2008-03-19 21:07:06.000000000 +0100
-+++ mutt-1.5.21/contrib/Makefile.am	2011-11-02 12:47:34.143534053 +0100
-@@ -5,7 +5,7 @@ subdir = contrib
+diff -ur mutt-1.7.1.orig/contrib/Makefile.am mutt-1.7.1/contrib/Makefile.am
+--- mutt-1.7.1.orig/contrib/Makefile.am	2016-10-09 12:08:41.081976100 +0100
++++ mutt-1.7.1/contrib/Makefile.am	2016-10-09 12:10:16.019451571 +0100
+@@ -5,7 +5,7 @@
  SAMPLES = Mush.rc Pine.rc gpg.rc pgp2.rc pgp5.rc pgp6.rc Tin.rc \
- 	sample.muttrc  sample.mailcap sample.muttrc-tlr \
- 	colors.default colors.linux smime.rc \
+ 	sample.mailcap sample.muttrc sample.muttrc-sidebar sample.muttrc-tlr \
+ 	sample.vimrc-sidebar colors.default colors.linux smime.rc \
 -	ca-bundle.crt smime_keys_test.pl mutt_xtitle
 +	smime_keys_test.pl mutt_xtitle
  
  EXTRA_DIST = language.txt language50.txt  \
  	patch.slang-1.2.2.keypad.1	\
-diff -up mutt-1.5.21/doc/smime-notes.txt.cabundle mutt-1.5.21/doc/smime-notes.txt
---- mutt-1.5.21/doc/smime-notes.txt.cabundle	2011-11-02 12:53:56.808750080 +0100
-+++ mutt-1.5.21/doc/smime-notes.txt	2011-11-02 12:57:46.225881970 +0100
-@@ -40,8 +40,10 @@ How to add use mutt's S/MIME capabilitie
+diff -ur mutt-1.7.1.orig/doc/smime-notes.txt mutt-1.7.1/doc/smime-notes.txt
+--- mutt-1.7.1.orig/doc/smime-notes.txt	2016-10-09 12:08:41.071976366 +0100
++++ mutt-1.7.1/doc/smime-notes.txt	2016-10-09 12:11:11.964963896 +0100
+@@ -40,8 +40,10 @@
  - Edit the smime_sign_as line in your muttrc, replacing the keyid with your
    own.
  
