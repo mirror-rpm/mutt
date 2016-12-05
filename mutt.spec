@@ -18,7 +18,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.7.1
+Version: 1.7.2
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -196,6 +196,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon Dec 05 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.2-1
+- Upgrade to 1.7.2
+
 * Sun Oct 09 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.1-1
 - Upgrade to 1.7.1
 - Rebase cabundle patch
