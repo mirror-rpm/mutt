@@ -19,7 +19,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -196,6 +196,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Sat Dec 10 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 5:1.7.2-2
+- Rebuild for gpgme 1.18
+
 * Mon Dec 05 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.2-1
 - Upgrade to 1.7.2
 
