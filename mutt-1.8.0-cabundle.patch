@@ -1,18 +1,18 @@
-diff -ur mutt-1.7.1.orig/contrib/Makefile.am mutt-1.7.1/contrib/Makefile.am
---- mutt-1.7.1.orig/contrib/Makefile.am	2016-10-09 12:08:41.081976100 +0100
-+++ mutt-1.7.1/contrib/Makefile.am	2016-10-09 12:10:16.019451571 +0100
+diff -ur mutt-1.8.0.orig/contrib/Makefile.am mutt-1.8.0/contrib/Makefile.am
+--- mutt-1.8.0.orig/contrib/Makefile.am	2017-02-25 15:28:22.124997366 +0000
++++ mutt-1.8.0/contrib/Makefile.am	2017-02-25 15:48:10.834036861 +0000
 @@ -5,7 +5,7 @@
  SAMPLES = Mush.rc Pine.rc gpg.rc pgp2.rc pgp5.rc pgp6.rc Tin.rc \
  	sample.mailcap sample.muttrc sample.muttrc-sidebar sample.muttrc-tlr \
- 	sample.vimrc-sidebar colors.default colors.linux smime.rc \
+ 	sample.muttrc-compress sample.vimrc-sidebar colors.default colors.linux smime.rc \
 -	ca-bundle.crt smime_keys_test.pl mutt_xtitle
 +	smime_keys_test.pl mutt_xtitle
  
  EXTRA_DIST = language.txt language50.txt  \
  	patch.slang-1.2.2.keypad.1	\
-diff -ur mutt-1.7.1.orig/doc/smime-notes.txt mutt-1.7.1/doc/smime-notes.txt
---- mutt-1.7.1.orig/doc/smime-notes.txt	2016-10-09 12:08:41.071976366 +0100
-+++ mutt-1.7.1/doc/smime-notes.txt	2016-10-09 12:11:11.964963896 +0100
+diff -ur mutt-1.8.0.orig/doc/smime-notes.txt mutt-1.8.0/doc/smime-notes.txt
+--- mutt-1.8.0.orig/doc/smime-notes.txt	2017-02-25 15:28:22.119997501 +0000
++++ mutt-1.8.0/doc/smime-notes.txt	2017-02-25 16:06:38.986242390 +0000
 @@ -40,8 +40,10 @@
  - Edit the smime_sign_as line in your muttrc, replacing the keyid with your
    own.

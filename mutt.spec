@@ -18,8 +18,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.7.2
-Release: 3%{?dist}
+Version: 1.8.0
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -28,8 +28,8 @@ Group: Applications/Internet
 # hg snapshot created from http://dev.mutt.org/hg/mutt
 Source: ftp://ftp.mutt.org/pub/%{name}/%{name}-%{version}.tar.gz
 Source1: mutt_ldap_query
-Patch1: mutt-1.5.18-muttrc.patch
-Patch2: mutt-1.7.1-cabundle.patch
+Patch1: mutt-1.8.0-muttrc.patch
+Patch2: mutt-1.8.0-cabundle.patch
 # https://dev.mutt.org/trac/ticket/3569
 Patch3: mutt-1.7.0-syncdebug.patch
 # FIXME make it to upstream
@@ -196,29 +196,34 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Sat Feb 25 2017 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.8.0-1
+- Upgrade to 1.8.0
+- Rebase muttrc patch
+- Rebase cabundle patch
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
 * Sat Dec 10 2016 Igor Gnatenko <i.gnatenko.brain@gmail.com> - 5:1.7.2-2
 - Rebuild for gpgme 1.18
 
-* Mon Dec 05 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.2-1
+* Mon Dec 05 2016 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.7.2-1
 - Upgrade to 1.7.2
 
-* Sun Oct 09 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.1-1
+* Sun Oct 09 2016 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.7.1-1
 - Upgrade to 1.7.1
 - Rebase cabundle patch
 
-* Sat Aug 20 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.7.0-1
+* Sat Aug 20 2016 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.7.0-1
 - Upgrade to 1.7.0
 
 * Thu Jul 07 2016 Jon Ciesla <limburgher@gmail.com> - 5:1.6.2-1
 - Upgrade to 1.6.2
 
-* Mon May 02 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.6.1-1
+* Mon May 02 2016 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.6.1-1
 - Upgrade to 1.6.1
 
-* Mon Apr 18 2016 Fabio Alessandro Locati <fale@redhat.com> - 5:1.6.0-1
+* Mon Apr 18 2016 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.6.0-1
 - Upgrade to 1.6.0
 - Drop patch domainname since it should not be needed any more
 
