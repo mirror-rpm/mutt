@@ -18,7 +18,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.8.2
+Version: 1.8.3
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -196,6 +196,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Jun 21 2017 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.8.3-1
+- Upgrade to 1.8.3
+
 * Mon Apr 24 2017 Matej Mužila <mmuzila@redhat.com> - 5:1.8.2-1
 - Update to 1.8.2
 
