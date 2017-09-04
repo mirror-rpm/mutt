@@ -18,8 +18,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.8.3
-Release: 3%{?dist}
+Version: 1.9.0
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -34,7 +34,7 @@ Patch2: mutt-1.8.0-cabundle.patch
 Patch3: mutt-1.7.0-syncdebug.patch
 # FIXME make it to upstream
 Patch8: mutt-1.5.23-system_certs.patch
-Patch9: mutt-1.5.23-ssl_ciphers.patch
+Patch9: mutt-1.9.0-ssl_ciphers.patch
 Url: http://www.mutt.org
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -196,6 +196,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon Sep 04 2017 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.9.0-1
+- Upgrade to 1.9.0
+- Rebase mutt-1.5.23-ssl_ciphers.patch to mutt-1.9.0-ssl_ciphers.patch
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.8.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
