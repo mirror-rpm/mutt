@@ -18,7 +18,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.9.0
+Version: 1.9.1
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -196,6 +196,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Sun Sep 24 2017 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.9.1-1
+- Upgrade to 1.9.1
+
 * Mon Sep 04 2017 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.9.0-1
 - Upgrade to 1.9.0
 - Rebase mutt-1.5.23-ssl_ciphers.patch to mutt-1.9.0-ssl_ciphers.patch
