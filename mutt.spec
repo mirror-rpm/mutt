@@ -41,8 +41,10 @@ BuildRequires: ncurses-devel, gettext, automake
 # manual generation
 BuildRequires: /usr/bin/xsltproc, docbook-style-xsl, perl-interpreter
 BuildRequires: perl-generators
+%if 0%{!?rhel:1}
 # html manual -> txt manual conversion (lynx messes up the encoding)
 BuildRequires: w3m
+%endif
 
 %if %{with hcache}
 %{?with_tokyocabinet:BuildRequires: tokyocabinet-devel}
