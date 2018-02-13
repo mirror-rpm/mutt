@@ -18,8 +18,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.9.2
-Release: 2%{?dist}
+Version: 1.9.3
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -198,6 +198,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Tue Feb 13 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.3-1
+- Upgrade to 1.9.3
+
 * Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
@@ -258,7 +261,7 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
 * Fri Sep 04 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.24-1
-- Updated to 1.5.24 (Resolves: rhbz#1259332)
+- Updated to 1.5.24 (Resolves: rhbz#1259332)
 - Utilize system-wide crypto-policies (Resolves: rhbz#1179324)
 
 * Thu Jun 25 2015 Matej Muzila <mmuzila@redhat.com> - 5:1.5.23-9
