@@ -19,7 +19,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.9.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -34,6 +34,7 @@ Patch2: mutt-1.8.0-cabundle.patch
 Patch3: mutt-1.7.0-syncdebug.patch
 # FIXME make it to upstream
 Patch8: mutt-1.5.23-system_certs.patch
+Patch10: mutt-1.9.4-lynx_no_backscapes.patch
 Patch9: mutt-1.9.0-ssl_ciphers.patch
 Url: http://www.mutt.org
 Requires: mailcap, urlview
@@ -41,10 +42,7 @@ BuildRequires: ncurses-devel, gettext, automake
 # manual generation
 BuildRequires: /usr/bin/xsltproc, docbook-style-xsl, perl-interpreter
 BuildRequires: perl-generators
-%if 0%{!?rhel:1}
-# html manual -> txt manual conversion (lynx messes up the encoding)
-BuildRequires: w3m
-%endif
+BuildRequires: lynx
 
 %if %{with hcache}
 %{?with_tokyocabinet:BuildRequires: tokyocabinet-devel}
@@ -86,6 +84,7 @@ autoreconf --install
 %patch3 -p1 -b .syncdebug
 %patch8 -p1 -b .system_certs
 %patch9 -p1 -b .ssl_ciphers
+%patch10 -p1 -b .lynx_no_backscapes
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -198,6 +197,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon Apr 13 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.4-2
+- Use lynx to generate documentation
+
 * Mon Apr 09 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.4-1
 - Upgrade to 1.9.4
 
