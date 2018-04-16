@@ -18,8 +18,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.9.4
-Release: 2%{?dist}
+Version: 1.9.5
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -197,7 +197,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
-* Mon Apr 13 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.4-2
+* Mon Apr 16 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.5-1
+- Upgrade to 1.9.5
+
+* Fri Apr 13 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.4-2
 - Use lynx to generate documentation
 
 * Mon Apr 09 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.4-1
