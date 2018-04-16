@@ -5,7 +5,8 @@
 %bcond_without gnutls
 %bcond_without gss
 %bcond_without sasl
-%bcond_without idn
+%bcond_with idn
+%bcond_without idn2
 %bcond_without hcache
 %bcond_without tokyocabinet
 %bcond_with bdb
@@ -19,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.9.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -34,8 +35,9 @@ Patch2: mutt-1.8.0-cabundle.patch
 Patch3: mutt-1.7.0-syncdebug.patch
 # FIXME make it to upstream
 Patch8: mutt-1.5.23-system_certs.patch
-Patch10: mutt-1.9.4-lynx_no_backscapes.patch
 Patch9: mutt-1.9.0-ssl_ciphers.patch
+Patch10: mutt-1.9.4-lynx_no_backscapes.patch
+Patch11: mutt-1.9.5-add_libidn2_support.patch
 Url: http://www.mutt.org
 Requires: mailcap, urlview
 BuildRequires: ncurses-devel, gettext, automake
@@ -61,6 +63,7 @@ BuildRequires: lynx
 %endif
 
 %{?with_idn:BuildRequires: libidn-devel}
+%{?with_idn2:BuildRequires: libidn2-devel}
 %{?with_gpgme:BuildRequires: gpgme-devel}
 
 
@@ -85,6 +88,7 @@ autoreconf --install
 %patch8 -p1 -b .system_certs
 %patch9 -p1 -b .ssl_ciphers
 %patch10 -p1 -b .lynx_no_backscapes
+%patch11 -p1 -b .add_libidn2_support
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -129,7 +133,11 @@ rm -f mutt_ssl.c
     %{?with_gss:	--with-gss} \
     %endif
 \
+    %{?with_idn:	--with-idn} \
     %{!?with_idn:	--without-idn} \
+    %{?with_idn2:   --with-idn2} \
+    %{!?with_idn2:  --without-idn2} \
+\
     %{?with_gpgme:	--enable-gpgme} \
     %{?with_sidebar: --enable-sidebar} \
     --with-docdir=%{_pkgdocdir}
@@ -197,6 +205,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon Apr 16 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.5-2
+- Use libidn2 instead of libidn
+
 * Mon Apr 16 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.5-1
 - Upgrade to 1.9.5
 
