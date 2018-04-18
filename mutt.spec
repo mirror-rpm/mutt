@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.9.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -81,14 +81,16 @@ for selecting groups of messages.
 # disable mutt_dotlock program - disable post-install mutt_dotlock checking
 sed -i -r 's|install-exec-hook|my-useless-label|' Makefile.am
 # do not run ./prepare -V, because it also runs ./configure
+
+%patch10 -p1 -b .lynx_no_backscapes
+%patch11 -p1 -b .add_libidn2_support
+
 autoreconf --install
 %patch1 -p1 -b .muttrc
 %patch2 -p1 -b .cabundle
 %patch3 -p1 -b .syncdebug
 %patch8 -p1 -b .system_certs
 %patch9 -p1 -b .ssl_ciphers
-%patch10 -p1 -b .lynx_no_backscapes
-%patch11 -p1 -b .add_libidn2_support
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 # disable mutt_dotlock program - remove support from mutt binary
@@ -205,6 +207,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Apr 18 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.5-3
+- Apply patches of autoreconf related configuration files before running
+  autoreconf
+
 * Mon Apr 16 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.9.5-2
 - Use libidn2 instead of libidn
 
