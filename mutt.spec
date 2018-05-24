@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -78,8 +78,6 @@ for selecting groups of messages.
 %prep
 # unpack; cd
 %setup -q
-# disable mutt_dotlock program - disable post-install mutt_dotlock checking
-sed -i -r 's|install-exec-hook|my-useless-label|' Makefile.am
 # do not run ./prepare -V, because it also runs ./configure
 
 %patch10 -p1 -b .lynx_no_backscapes
@@ -205,6 +203,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu May 24 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.10.0-2
+- Disable post-install mutt_dotlock checking by patch, not by sed.
+
 * Tue May 22 2018 Matej Mužila <mmuzila@redhat.com> - 5:1.10.0-1
 - Upgrade to 1.10.0
 
