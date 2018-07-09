@@ -40,6 +40,7 @@ Patch10: mutt-1.9.4-lynx_no_backscapes.patch
 Patch12: mutt-1.9.5-nodotlock.patch
 Url: http://www.mutt.org
 Requires: mailcap, urlview
+BuildRequires:  gcc
 BuildRequires: ncurses-devel, gettext, automake
 # manual generation
 BuildRequires: /usr/bin/xsltproc, docbook-style-xsl, perl-interpreter
