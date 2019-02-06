@@ -19,8 +19,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.10.1
-Release: 2%{?dist}
+Version: 1.11.3
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -177,6 +177,9 @@ rm -f %{buildroot}%{_mandir}/man5/mbox.5*
 rm -f %{buildroot}%{_mandir}/man5/mmdf.5*
 rm -rf %{buildroot}%{_pkgdocdir}
 
+# remove /usr/share/info/dir
+rm %{buildroot}%{_infodir}/dir
+
 # provide muttrc.local(5): the same as muttrc(5)
 ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
@@ -192,17 +195,22 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 %config(noreplace) %{_sysconfdir}/Muttrc
 %config(noreplace) %{_sysconfdir}/Muttrc.local
 %{_bindir}/mutt
-%{_bindir}/pgpring
+%{_bindir}/mutt_pgpring
 %{_bindir}/pgpewrap
 %{_bindir}/smime_keys
 %{_mandir}/man1/mutt.*
 %{_mandir}/man1/smime_keys.*
-%{_mandir}/man1/pgpring.*
+%{_mandir}/man1/mutt_pgpring.*
 %{_mandir}/man1/pgpewrap.*
 %{_mandir}/man5/muttrc.*
+%{_infodir}/mutt.info.gz
 
 
 %changelog
+* Wed Feb 06 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.11.3-1
+- Upgrade to 1.11.3
+- Resolves #1659217
+
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
