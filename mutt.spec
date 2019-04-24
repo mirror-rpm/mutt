@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.11.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -203,10 +203,13 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 %{_mandir}/man1/mutt_pgpring.*
 %{_mandir}/man1/pgpewrap.*
 %{_mandir}/man5/muttrc.*
-%{_infodir}/mutt.info.gz
+%{_infodir}/mutt.info.*
 
 
 %changelog
+* Wed Apr 24 2019 Björn Esser <besser82@fedoraproject.org> - 5:1.11.4-2
+- Remove hardcoded gzip suffix from GNU info pages
+
 * Wed Feb 06 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.11.4-1
 - Upgrade to 1.11.4
 - Resolves #1688091
