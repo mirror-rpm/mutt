@@ -19,8 +19,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.11.4
-Release: 2%{?dist}
+Version: 1.12.0
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -45,6 +45,7 @@ BuildRequires: ncurses-devel, gettext, automake
 BuildRequires: /usr/bin/xsltproc, docbook-style-xsl, perl-interpreter
 BuildRequires: perl-generators
 BuildRequires: lynx
+BuildRequires: docbook2X
 
 %if %{with hcache}
 %{?with_tokyocabinet:BuildRequires: tokyocabinet-devel}
@@ -207,6 +208,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Tue May 28 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.12.0-1
+- Upgrade to 1.12.0
+- Resolves #1710398,#1713910
+
 * Wed Apr 24 2019 Björn Esser <besser82@fedoraproject.org> - 5:1.11.4-2
 - Remove hardcoded gzip suffix from GNU info pages
 
