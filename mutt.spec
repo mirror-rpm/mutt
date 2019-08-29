@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -37,9 +37,11 @@ Patch8: mutt-1.5.23-system_certs.patch
 Patch9: mutt-1.9.0-ssl_ciphers.patch
 Patch10: mutt-1.9.4-lynx_no_backscapes.patch
 Patch12: mutt-1.9.5-nodotlock.patch
+Patch13: mutt-1.12.1-optusegpgagent.patch
+
 Url: http://www.mutt.org
 Requires: mailcap, urlview
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: ncurses-devel, gettext, automake
 # manual generation
 BuildRequires: /usr/bin/xsltproc, docbook-style-xsl, perl-interpreter
@@ -90,6 +92,7 @@ autoreconf --install
 %patch3 -p1 -b .syncdebug
 %patch8 -p1 -b .system_certs
 %patch9 -p1 -b .ssl_ciphers
+%patch13 -p1 -b .optusegpgagent
 
 sed -i -r 's/`$GPGME_CONFIG --libs`/"\0 -lgpg-error"/' configure
 
@@ -208,10 +211,14 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Thu Aug 29 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.12.1-3
+- Make mutt to ask for GPG passphrase
+- Resolves: #1731854
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 5:1.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
-* Tue Jul 17 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.12.1-1
+* Wed Jul 17 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.12.1-1
 - Upgrade to 1.12.1
 - Resolves #1720848
 
