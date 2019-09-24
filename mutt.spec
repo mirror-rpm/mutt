@@ -19,8 +19,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.12.1
-Release: 3%{?dist}
+Version: 1.12.2
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -211,6 +211,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Tue Sep 24 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.12.2-1
+- Upgrade to 1.12.2
+- Resolves: #1754211
+
 * Thu Aug 29 2019 Matej Mužila <mmuzila@redhat.com> - 5:1.12.1-3
 - Make mutt to ask for GPG passphrase
 - Resolves: #1731854
