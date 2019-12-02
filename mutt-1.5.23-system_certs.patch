@@ -5,8 +5,8 @@ diff -rup mutt-17a4f92e4a95-orig/init.h mutt-17a4f92e4a95-new/init.h
    */
  #if defined(USE_SSL)
  #ifdef USE_SSL_GNUTLS
--  { "ssl_ca_certificates_file", DT_PATH, R_NONE, UL &SslCACertFile, 0 },
-+  { "ssl_ca_certificates_file", DT_PATH, R_NONE, UL &SslCACertFile, "/etc/ssl/certs/ca-bundle.crt" },
+-  { "ssl_ca_certificates_file", DT_PATH, R_NONE, {.p=&SslCACertFile}, {.p=0} },
++  { "ssl_ca_certificates_file", DT_PATH, R_NONE, {.p=&SslCACertFile}, {.p="/etc/ssl/certs/ca-bundle.crt"} },
    /*
    ** .pp
    ** This variable specifies a file containing trusted CA certificates.

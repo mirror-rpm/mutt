@@ -1,7 +1,7 @@
 diff -ur mutt-1.8.0.orig/doc/Muttrc.head mutt-1.8.0/doc/Muttrc.head
 --- mutt-1.8.0.orig/doc/Muttrc.head	2017-02-25 15:28:22.120997474 +0000
 +++ mutt-1.8.0/doc/Muttrc.head	2017-02-25 15:30:10.643079681 +0000
-@@ -24,12 +24,16 @@
+@@ -24,13 +24,17 @@
  
  # Show documentation when pressing F1
  macro generic,pager <F1> "<shell-escape> less @docdir@/manual.txt<Enter>" "show Mutt documentation"
@@ -9,8 +9,9 @@ diff -ur mutt-1.8.0.orig/doc/Muttrc.head mutt-1.8.0/doc/Muttrc.head
 +macro generic,pager <F2> "<shell-escape> less @docdir@/manual.txt<Enter>" "show Mutt documentation"
  
  # show the incoming mailboxes list (just like "mutt -y") and back when pressing "y"
- macro index y "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
- macro pager y "<exit><change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
+ # note: these macros have been subsumed by the <browse-mailboxes> function.
+ # macro index y "<change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
+ # macro pager y "<exit><change-folder>?<toggle-mailboxes>" "show incoming mailboxes list"
  bind browser y exit
  
 +bind editor <delete> delete-char

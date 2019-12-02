@@ -5,8 +5,8 @@ diff -up mutt-1.12.1/init.h.optusegpgagent mutt-1.12.1/init.h
    ** not used.
    ** (PGP only)
    */
--  { "pgp_use_gpg_agent", DT_BOOL, R_NONE, OPTUSEGPGAGENT, 1},
-+  { "pgp_use_gpg_agent", DT_BOOL, R_NONE, OPTUSEGPGAGENT, 0},
+-  { "pgp_use_gpg_agent", DT_BOOL, R_NONE, {.l=OPTUSEGPGAGENT}, {.l=1} },
++  { "pgp_use_gpg_agent", DT_BOOL, R_NONE, {.l=OPTUSEGPGAGENT}, {.l=0} },
    /*
    ** .pp
    ** If \fIset\fP, mutt expects a \fCgpg-agent(1)\fP process will handle
