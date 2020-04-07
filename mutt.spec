@@ -19,7 +19,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.13.4
+Version: 1.13.5
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -211,6 +211,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Tue Apr 07 2020 Matej Mužila <mmuzila@redhat.com> - 5:1.13.5-1
+- Upgrade to 1.13.5
+- Resolves: #1818513
+
 * Mon Feb 17 2020 Matej Mužila <mmuzila@redhat.com> - 5:1.13.4-1
 - Upgrade to 1.13.4
 - Resolves: #1803392
