@@ -1,15 +1,15 @@
 diff -ur mutt-1.8.0.orig/contrib/Makefile.am mutt-1.8.0/contrib/Makefile.am
 --- mutt-1.8.0.orig/contrib/Makefile.am	2017-02-25 15:28:22.124997366 +0000
 +++ mutt-1.8.0/contrib/Makefile.am	2017-02-25 15:48:10.834036861 +0000
-@@ -5,7 +5,7 @@
+@@ -6,7 +6,7 @@
  	sample.mailcap sample.muttrc sample.muttrc-sidebar sample.muttrc-tlr \
  	sample.muttrc-compress sample.muttrc-starter \
  	sample.vimrc-sidebar colors.default colors.linux smime.rc \
--	ca-bundle.crt smime_keys_test.pl mutt_xtitle markdown2html
-+	smime_keys_test.pl mutt_xtitle markdown2html
+-	ca-bundle.crt smime_keys_test.pl mutt_xtitle markdown2html \
++	smime_keys_test.pl mutt_xtitle markdown2html \
+	bgedit-detectgui.sh bgedit-screen-tmux.sh
  
  EXTRA_DIST = language.txt language50.txt  \
- 	patch.slang-1.2.2.keypad.1	\
 diff -ur mutt-1.8.0.orig/doc/smime-notes.txt mutt-1.8.0/doc/smime-notes.txt
 --- mutt-1.8.0.orig/doc/smime-notes.txt	2017-02-25 15:28:22.119997501 +0000
 +++ mutt-1.8.0/doc/smime-notes.txt	2017-02-25 16:06:38.986242390 +0000
