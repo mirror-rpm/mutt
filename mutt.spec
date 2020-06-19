@@ -19,7 +19,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.14.3
+Version: 1.14.4
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -211,6 +211,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Fri Jun 19 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.4-1
+- Upgrade to 1.14.4
+- Resolves: #1848768
+
 * Mon Jun 15 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.3-1
 - Upgrade to 1.14.3
 - Resolves: #1836550
