@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.14.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -144,14 +144,14 @@ rm -f mutt_ssl.c
     %{?with_sidebar: --enable-sidebar} \
     --with-docdir=%{_pkgdocdir}
 
-make %{?_smp_mflags}
+%make_build
 
 # remove unique id in manual.html because multilib conflicts
 sed -i -r 's/<a id="id[a-z0-9]\+">/<a id="id">/g' doc/manual.html
 
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # we like GPG here
 cat contrib/gpg.rc >> \
@@ -211,6 +211,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Mon Jul 13 2020 Tom Stellard <tstellar@redhat.com> - 5:1.14.5-2
+- Use make macros
+- https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
+
 * Wed Jun 24 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.5-1
 - Upgrade to 1.14.5
 
