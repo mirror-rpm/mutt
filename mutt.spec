@@ -19,8 +19,8 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 1.14.5
-Release: 2%{?dist}
+Version: 1.14.6
+Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -211,18 +211,21 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Wed Jul 22 2020 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.14.6-1
+- Upgrade to 1.14.6
+
 * Mon Jul 13 2020 Tom Stellard <tstellar@redhat.com> - 5:1.14.5-2
 - Use make macros
 - https://fedoraproject.org/wiki/Changes/UseMakeBuildInstallMacro
 
-* Wed Jun 24 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.5-1
+* Wed Jun 24 2020 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.14.5-1
 - Upgrade to 1.14.5
 
-* Fri Jun 19 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.4-1
+* Fri Jun 19 2020 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.14.4-1
 - Upgrade to 1.14.4
 - Resolves: #1848768
 
-* Mon Jun 15 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.3-1
+* Mon Jun 15 2020 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.14.3-1
 - Upgrade to 1.14.3
 - Resolves: #1836550
 
@@ -230,7 +233,7 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 - Upgrade to 1.14.2
 - Resolves: #1836550
 
-* Sat May 09 2020 Fabio Alessandro Locati <me@fale.io> - 5:1.14.0-1
+* Sat May 09 2020 Fabio Alessandro Locati <fale@fedoraproject.org> - 5:1.14.0-1
 - Upgrade to 1.14.0
 - Resolves: #1818513
 
