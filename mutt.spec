@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 1.14.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -211,6 +211,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Tue Sep 01 2020 Matej Mužila <mmuzila@redhat.com> - 5:1.14.7-2
+- Fix mutt-1.9.4-lynx_no_backscapes.patch
+
 * Mon Aug 31 2020 Matej Mužila <mmuzila@redhat.com> - 5:1.14.7-1
 - Upgrade to 1.14.7
 
