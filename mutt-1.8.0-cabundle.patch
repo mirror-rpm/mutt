@@ -7,9 +7,9 @@ diff -ur mutt-1.8.0.orig/contrib/Makefile.am mutt-1.8.0/contrib/Makefile.am
  	sample.vimrc-sidebar colors.default colors.linux smime.rc \
 -	ca-bundle.crt smime_keys_test.pl mutt_xtitle markdown2html \
 +	smime_keys_test.pl mutt_xtitle markdown2html \
-	bgedit-detectgui.sh bgedit-screen-tmux.sh
+ 	bgedit-detectgui.sh bgedit-screen-tmux.sh \
+ 	mutt_oauth2.py mutt_oauth2.py.README
  
- EXTRA_DIST = language.txt language50.txt  \
 diff -ur mutt-1.8.0.orig/doc/smime-notes.txt mutt-1.8.0/doc/smime-notes.txt
 --- mutt-1.8.0.orig/doc/smime-notes.txt	2017-02-25 15:28:22.119997501 +0000
 +++ mutt-1.8.0/doc/smime-notes.txt	2017-02-25 16:06:38.986242390 +0000

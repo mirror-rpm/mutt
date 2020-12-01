@@ -9,7 +9,7 @@ diff -ur mutt-1.9.0.orig/init.h mutt-1.9.0/init.h
 +  { "ssl_ciphers", DT_STR, R_NONE, {.p=&SslCiphers}, {.p="@SYSTEM"} },
    /*
    ** .pp
-   ** Contains a colon-seperated list of ciphers to use when using SSL.
+   ** Contains a colon-separated list of ciphers to use when using SSL.
 diff -ur mutt-1.9.0.orig/mutt_ssl_gnutls.c mutt-1.9.0/mutt_ssl_gnutls.c
 --- mutt-1.9.0.orig/mutt_ssl_gnutls.c	2017-09-04 16:48:21.403528134 +0200
 +++ mutt-1.9.0/mutt_ssl_gnutls.c	2017-09-04 16:51:16.081679141 +0200
@@ -19,7 +19,7 @@ diff -ur mutt-1.9.0.orig/mutt_ssl_gnutls.c mutt-1.9.0/mutt_ssl_gnutls.c
  
 +if (SslCiphers && strcmp(SslCiphers, "@SYSTEM"))
 +{
-   if (!option(OPTTLSV1_3))
+   if (!option (OPTTLSV1_3))
    {
      nproto--;
 @@ -313,6 +315,7 @@
