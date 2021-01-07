@@ -41,6 +41,7 @@ Patch13: mutt-1.12.1-optusegpgagent.patch
 
 Url: http://www.mutt.org
 Requires: mailcap, urlview
+BuildRequires: make
 BuildRequires: gcc
 BuildRequires: ncurses-devel, gettext, automake
 # manual generation
