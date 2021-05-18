@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 2.0.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -150,6 +150,11 @@ rm -f mutt_ssl.c
 # remove unique id in manual.html because multilib conflicts
 sed -i -r 's/<a id="id[a-z0-9]\+">/<a id="id">/g' doc/manual.html
 
+# fix the shebang in mutt_oauth2.py & preserve the time stamp
+oauth2_script="contrib/mutt_oauth2.py"
+t=$(stat -c %y "${oauth2_script}")
+sed -i "s:^#\!/usr/bin/env\s\+python3\s\?$:#!%{python3}:" "${oauth2_script}"
+touch -d "$t" "${oauth2_script}"
 
 %install
 %make_install
@@ -195,6 +200,7 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 %{!?_licensedir:%global license %doc}
 %license COPYRIGHT GPL
 %doc ChangeLog NEWS README* UPDATING mutt_ldap_query
+%doc contrib/mutt_oauth2.py contrib/mutt_oauth2.py.README
 %doc contrib/*.rc contrib/sample.* contrib/colors.*
 %doc doc/manual.html doc/manual.txt doc/smime-notes.txt
 %config(noreplace) %{_sysconfdir}/Muttrc
@@ -212,6 +218,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Fri May  7 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 5:2.0.7-2
+- Ship the mutt_oauth2.py script as well
+
 * Thu May 6 2021 Filip Januš <fjanus@redhat.com> 5:2.0.7-1
 -Rebase to v2.0.7
 
