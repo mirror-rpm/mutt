@@ -19,7 +19,7 @@
 
 Summary: A text mode mail user agent
 Name: mutt
-Version: 2.1.1
+Version: 2.1.3
 Release: 1%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
@@ -218,7 +218,10 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
-* Tue Aug 10 2021 Matej Mužila <mmuzila@gmail.com> - 5:2.1.1-1
+* Mon Oct 25 2021 Matej Mužila <mmuzila@redhat.com> - 5:2.1.3-1
+- Upgrade to 2.1.3
+
+* Tue Aug 10 2021 Matej Mužila <mmuzila@redhat.com> - 5:2.1.1-1
 - Upgrade to 2.1.1
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5:2.0.7-3
